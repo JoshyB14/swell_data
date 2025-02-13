@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS swell from read_json (freshwater_data);

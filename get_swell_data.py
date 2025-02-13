@@ -1,12 +1,15 @@
 import make_api_call as call
+import json
+import os
 
-# Openmeteo api
+
+# openmeteo api
 # https://open-meteo.com/en/docs
 
-# Base url
+# base url
 url = "https://marine-api.open-meteo.com/v1/marine"
 
-# Parameters for Freshwater Beach on Sydney's Northern Beaches
+# parameters for Freshwater Beach on Sydney's Northern Beaches
 params = {
 	"latitude": -33.784387,
 	"longitude": 151.294499,
@@ -15,8 +18,12 @@ params = {
 	"forecast_days": 1
 }
 
-# Calling api function
+# calling api function
 freshwater_data = call.make_api_call(url, params)
+
+# save to landing zone
+with open(os.path.join('landing_zone','freshwater_data.json'), 'w') as json_file:
+    json.dump(freshwater_data, json_file, indent=1)
 
 
 
