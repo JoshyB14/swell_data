@@ -15,7 +15,7 @@ params = {
 	"longitude": 151.294499,
 	"hourly": ["wave_height", "wave_direction", "wave_period", "swell_wave_height", "swell_wave_direction", "swell_wave_period"],
 	"timezone": "Australia/Sydney",
-	"forecast_days": 1
+	"forecast_days": 7
 }
 
 # calling api function
