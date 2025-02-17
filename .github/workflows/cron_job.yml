@@ -1,0 +1,31 @@
+name: Build Swell Pipeline # Cron job to get swell data from API, load to Motherduck and publish to Streamlit
+
+on:
+  schedule:
+    - cron: "0 22 * * *"  # UTC +11 Sydney Time (9am)
+  workflow_dispatch:       # Manual triggering from Github UI
+
+jobs:
+  run-scripts:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: |
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; 
+
+      - name: Get swell data
+        run: python get_swell_data.py
+
+      - name: Load data to Motherduck
+        run: python load_data.py  
+
+
