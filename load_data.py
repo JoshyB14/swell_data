@@ -5,7 +5,7 @@ import os
 motherduck_token = os.getenv("MOTHERDUCK_TOKEN")
 
 # connect to motherduck database
-con = duckdb.connect('md:?motherduck_token={motherduck_token}')
+con = duckdb.connect(f'md:?motherduck_token={motherduck_token}')
 
 # open table builder sql script
 with open('./sql/build_tables.sql', 'r') as build_tables:
