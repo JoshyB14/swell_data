@@ -1,7 +1,7 @@
 import duckdb
 import os
-# connect to local duckdb database
-con = duckdb.connect('swell_data.duckdb')
+# connect to motherduck database
+con = duckdb.connect('md:?motherduck_token=')
 
 # open table builder sql script
 with open('./sql/build_tables.sql', 'r') as build_tables:
@@ -11,8 +11,4 @@ with open('./sql/build_tables.sql', 'r') as build_tables:
 con.sql(sql_script)
 
 # close connection
-con.close()
-
-con = duckdb.connect('swell_data.duckdb')
-con.sql("select * from swell;").show()
 con.close()
