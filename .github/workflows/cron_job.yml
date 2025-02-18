@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+      - name: Set Timezone
+        run: sudo timedatectl set-timezone "Australia/Sydney"
+        
       - name: Checkout repository
         uses: actions/checkout@v4
 
