@@ -1,5 +1,7 @@
 import streamlit as st
 import duckdb
+import pandas as pd
+import matplotlib.pyplot as plt
 
 ### Config
 
@@ -20,4 +22,15 @@ st.write("Get the latest wave height, period and direction for your favorite sur
 # TODO: Implement location selection 
 # selected_location = st.selectbox("Select a location", locations)
 
+data = conn.execute('select * from swell').fetchdf()
 
+
+# Plot the Wave Direction vs Time
+st.subheader("Wave Direction Over Time")
+fig, ax = plt.subplots(figsize=(10, 6))
+ax.plot(data['time'], data['wave_direction'], label='Wave Direction (°)', color='orange')
+ax.set_xlabel("Time")
+ax.set_ylabel("Wave Direction (°)")
+ax.set_title("Wave Direction Over Time")
+ax.grid(True)
+st.pyplot(fig)
