@@ -14,5 +14,12 @@ with open('./sql/build_tables.sql', 'r') as build_tables:
 # run in duckdb
 con.sql(sql_script)
 
+# open view builder sql script
+with open('./sql/swell_view.sql', 'r') as swell_view:
+    sql_script = swell_view.read()
+
+# run in duckdb
+con.sql(sql_script)
+
 # close connection
 con.close()
