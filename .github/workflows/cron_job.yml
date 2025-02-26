@@ -33,7 +33,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-        - name: Get swell data
+      
+      - name: Get swell data
         run: python get_swell_data.py
 
         - name: Load data to Motherduck & build tables / views
