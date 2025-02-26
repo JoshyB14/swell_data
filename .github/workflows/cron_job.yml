@@ -6,7 +6,7 @@ on:
   workflow_dispatch:       # Manual triggering from Github UI
 
 jobs:
-  setup_vm:
+  run-scripts:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,12 +28,6 @@ jobs:
             pip install -r requirements.txt
           fi
 
-  run_scripts:
-    needs: setup_vm
-    runs-on: ubuntu-latest
-    
-    steps:
-
       - name: Get swell data
         run: python get_swell_data.py
 
@@ -41,5 +35,3 @@ jobs:
         env:
           MOTHERDUCK_TOKEN: ${{ secrets.MOTHERDUCK_TOKEN }}
         run: python load_data.py
-
-
