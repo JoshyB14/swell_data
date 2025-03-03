@@ -52,6 +52,7 @@ query = f"""
 swell_data_filtered = conn.execute(query).fetchdf()
 swell_data_filtered['time'] = pd.to_datetime(swell_data_filtered['time'])
 
+# Selectable parameters
 params = st.sidebar.selectbox("Select Parameter:",
                               ['wave_height', 'wave_direction', 'wave_period',
                               'swell_wave_height', 'swell_wave_direction',
