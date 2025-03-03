@@ -12,6 +12,16 @@ WITH swell_rn as (
     row_number() over(partition by time order by api_call_time desc) as rn
 FROM swell
 )
-SELECT * FROM swell_rn
+SELECT
+location,
+api_call_time,
+time,
+ROUND(wave_height,2) as wave_height,
+wave_direction,
+ROUND(wave_period,2) as wave_period,
+ROUND(swell_wave_height,2) as swell_wave_height,
+swell_wave_direction,
+ROUND(swell_wave_period,2) as swell_wave_period
+FROM swell_rn
 WHERE rn = 1
 ;
