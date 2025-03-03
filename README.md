@@ -10,7 +10,7 @@ Every day at 9:00 AM Sydney Time (AEDT), a GitHub Action is triggered to run a P
 
 Minor data cleaning and formatting tasks are performed within a view inside Motherduck to ensure the data is ready for visualisation. A Streamlit dashboard pulls the processed data from this view and is re-loaded each time the dashboard is accessed.
 
-## Streamlit Dashboard Example
+## Streamlit Dashboard
 
 Example below - Continually being built upon.
 
