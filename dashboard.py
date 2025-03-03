@@ -29,14 +29,8 @@ st.sidebar.write(f"Data last updated: {last_update_time}")
 locs = st.sidebar.selectbox("Select location: ",
                             conn.execute("SELECT DISTINCT location from swell_refined;").fetchdf().location.to_list())
 
-params = st.sidebar.selectbox("Select Parameter:",
-                              ['wave_height', 'wave_direction', 'wave_period',
-                              'swell_wave_height', 'swell_wave_direction',
-                              'swell_wave_period'])
-
-
 # Time Slider
-swell_data_time = conn.execute("SELECT time FROM swell_refined;").fetchdf()
+swell_data_time = conn.execute(f"SELECT time FROM swell_refined WHERE location = '{locs}' ;").fetchdf()
 min_time = swell_data_time['time'].min().to_pydatetime()
 max_time = swell_data_time['time'].max().to_pydatetime()
 
@@ -57,6 +51,11 @@ query = f"""
 
 swell_data_filtered = conn.execute(query).fetchdf()
 swell_data_filtered['time'] = pd.to_datetime(swell_data_filtered['time'])
+
+params = st.sidebar.selectbox("Select Parameter:",
+                              ['wave_height', 'wave_direction', 'wave_period',
+                              'swell_wave_height', 'swell_wave_direction',
+                              'swell_wave_period'])
 
 # Centre line chart
 st.subheader(f"{params.replace("_"," ").title()} for {locs}")
