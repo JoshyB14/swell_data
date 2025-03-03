@@ -11,8 +11,3 @@ CREATE TABLE IF NOT EXISTS swell (
     swell_wave_direction FLOAT,
     swell_wave_period FLOAT
 );
-
-
-
-
-
