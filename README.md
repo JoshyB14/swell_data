@@ -8,11 +8,11 @@ A small data pipeline to get the local swell forcast for my local beach.
 
 Example below - Continually being built upon.
 
-![Dashboard](dashboard_screengrab.png)
+![Dashboard](./images/dashboard_screengrab.png)
 
 ### Data Architecture
 
-![Architecture](architecture.png)
+![Architecture](./images/architecture.png)
 
 Every day at 9:00 AM Sydney Time (AEDT), a GitHub Action is triggered to run a Python script. This script retrieves the latest swell forecast for the specified location from the Open-Meteo API, covering today +7 days. The data is initially written to disk within the GitHub Action VPC before being loaded into Motherduck.
 
