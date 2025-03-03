@@ -7,13 +7,23 @@ motherduck_token = os.getenv("MOTHERDUCK_TOKEN")
 con = duckdb.connect(f'md:?motherduck_token={motherduck_token}')
 
 #--------------------------------
-# Run SQL Scripts
+# Load data into Motherduck
 
-# init tables
-with open('./sql/build_tables.sql', 'r') as build_tables:
-    sql_script = build_tables.read() 
-# run in duckdb
-con.sql(sql_script)
+for file in os.listdir('./landing_zone'):
+
+    location_str = file.split('_')[0] # get location name
+
+
+    with open('./sql/build_tables.sql', 'r') as build_tables:
+        sql_script = build_tables.read() 
+
+    sql_script.format(location_var=location_str) # format location variable
+
+    # run in duckdb
+    con.sql(sql_script)
+
+#--------------------------------
+# Create Motherduck views
 
 # init views
 with open('./sql/swell_view.sql', 'r') as swell_view:
@@ -21,6 +31,10 @@ with open('./sql/swell_view.sql', 'r') as swell_view:
 # run in duckdb
 con.sql(sql_script)
 
-
 # close connection
 con.close()
+
+# remove json files
+for file in os.listdir('./landing_zone'):
+    os.remove(f'./landing_zone/{file}')
+

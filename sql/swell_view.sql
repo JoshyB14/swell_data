@@ -9,7 +9,7 @@ CREATE OR REPLACE VIEW swell_refined AS
 WITH swell_rn as (
   SELECT
     swell.*,
-    row_number() over(partition by time order by api_call_time desc) as rn
+    row_number() over(partition by location, time order by api_call_time desc) as rn
 FROM swell
 )
 SELECT
