@@ -36,7 +36,7 @@ for lat, long, loc in zip(lat, long, loc):
     data = call.make_api_call(url, updated_params)
 
     # save to landing zone
-    with open(os.path.join('landing_zone',f'{loc}_data.json'), 'w') as json_file:
+    with open(os.path.join('./landing_zone',f'{loc}_data.json'), 'w') as json_file:
         json.dump(data, json_file, indent=1)
 
 
