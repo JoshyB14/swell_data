@@ -33,7 +33,7 @@ for file in os.listdir('./landing_zone'):
     sql_script = f"""
     INSERT INTO swell
     SELECT 
-        {location_str}::TEXT as location,
+        '{location_str}'::TEXT as location,
         now()::TIMESTAMP as api_call_time,
         unnest(json_file.hourly.time)::TIMESTAMP AS time,
         unnest(json_file.hourly.wave_height)::FLOAT AS wave_height,
