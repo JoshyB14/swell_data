@@ -42,7 +42,7 @@ for file in os.listdir('./landing_zone'):
         unnest(json_file.hourly.swell_wave_height)::FLOAT AS swell_wave_height,
         unnest(json_file.hourly.swell_wave_direction)::FLOAT AS swell_wave_direction,
         unnest(json_file.hourly.swell_wave_period)::FLOAT AS swell_wave_period
-    FROM read_json_auto("./landing_zone/{location_str}.json") AS json_file
+    FROM read_json_auto("./landing_zone/{location_str}_data.json") AS json_file
     ;
 
     """
