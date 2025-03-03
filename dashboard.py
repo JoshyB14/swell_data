@@ -52,6 +52,7 @@ end_time_str = time_range[1].strftime('%Y-%m-%d %H:%M:%S')
 query = f"""
     SELECT * FROM swell_refined
     WHERE time::text >= '{start_time_str}' AND time <= '{end_time_str}'
+    AND location = '{locs}'
 """
 
 swell_data_filtered = conn.execute(query).fetchdf()
