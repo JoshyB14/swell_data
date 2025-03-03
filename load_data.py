@@ -12,7 +12,7 @@ con = duckdb.connect(f'md:?motherduck_token={motherduck_token}')
 for file in os.listdir('./landing_zone'):
 
     location_str = file.split('_')[0] # get location name
-
+    print(location_str)
 
     with open('./sql/build_tables.sql', 'r') as build_tables:
         sql_script = build_tables.read() 
