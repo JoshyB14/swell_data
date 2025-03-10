@@ -1,6 +1,7 @@
 -- Init table if not exists
 
-CREATE TABLE IF NOT EXISTS swell (
+CREATE TABLE IF NOT EXISTS swell 
+(
     location TEXT,
     api_call_time TIMESTAMP,
     time TIMESTAMP,

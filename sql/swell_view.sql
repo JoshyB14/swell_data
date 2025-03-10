@@ -6,22 +6,24 @@ closest forecast to the actual time is called.
 */
 
 CREATE OR REPLACE VIEW swell_refined AS 
-WITH swell_rn as (
+WITH swell_rn as 
+(
   SELECT
     swell.*,
     row_number() over(partition by location, time order by api_call_time desc) as rn
-FROM swell
+  FROM swell
 )
+
 SELECT
-location,
-api_call_time,
-time,
-ROUND(wave_height,2) as wave_height,
-wave_direction,
-ROUND(wave_period,2) as wave_period,
-ROUND(swell_wave_height,2) as swell_wave_height,
-swell_wave_direction,
-ROUND(swell_wave_period,2) as swell_wave_period
+  location,
+  api_call_time,
+  time,
+  ROUND(wave_height,2) as wave_height,
+  wave_direction,
+  ROUND(wave_period,2) as wave_period,
+  ROUND(swell_wave_height,2) as swell_wave_height,
+  swell_wave_direction,
+  ROUND(swell_wave_period,2) as swell_wave_period
 FROM swell_rn
-WHERE rn = 1
+  WHERE rn = 1
 ;
