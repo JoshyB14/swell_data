@@ -2,16 +2,17 @@ import streamlit as st
 import pandas as pd
 import duckdb
 
-### Config
 # ---------------------------------------------
+### Connections
+
 # Access streamlit secret from streamlit cloud TOML file
 motherduck_token = st.secrets["MOTHERDUCK"]["MOTHERDUCK_TOKEN"]
-
 conn = duckdb.connect(f'md:?motherduck_token={motherduck_token}')
-#conn = duckdb.connect('swell_data.duckdb') # local duckdb for development
+local_conn = duckdb.connect('./locations.duckdb')
 
-### Streamlit
 # ---------------------------------------------
+### Streamlit COnfig
+
 # Dashboard config
 st.set_page_config(page_title="Swell Forecast", page_icon="🌊", layout="wide")
 
@@ -25,7 +26,6 @@ st.sidebar.write(f"Data last updated: {last_update_time}")
 
 
 # Sidebar to select fields
-# TODO - update to add more locations
 locs = st.sidebar.selectbox("Select location: ",
                             conn.execute("SELECT DISTINCT location from swell_refined;").fetchdf().location.to_list())
 
@@ -48,7 +48,6 @@ query = f"""
     WHERE time::text >= '{start_time_str}' AND time <= '{end_time_str}'
     AND location = '{locs}'
 """
-
 swell_data_filtered = conn.execute(query).fetchdf()
 swell_data_filtered['time'] = pd.to_datetime(swell_data_filtered['time'])
 
@@ -63,7 +62,12 @@ st.subheader(f"{params.replace("_"," ").title()} for {locs}")
 st.line_chart(swell_data_filtered.set_index('time')[params])
 
 # Map chart
-# TODO - update this to be dynamic.
+lat_long_query = f"""
+    SELECT lat, long from locations 
+    WHERE location = '{locs}'
+"""
+locations_lat_long = conn.execute(lat_long_query).fetchdf().to_dict()
+
 st.subheader(f"Map of {locs}")
-st.map(data=pd.DataFrame({"latitude":[-33.784387],
-    "longitude": [151.294499],}))
+st.map(data=pd.DataFrame({"latitude":[locations_lat_long['lat'][0]],
+    "longitude": [locations_lat_long['long'][0]],}))
