@@ -31,7 +31,7 @@ locs = st.sidebar.selectbox("Select location: ",
                             conn.execute("SELECT DISTINCT location from swell_refined;").fetchdf().location.to_list())
 
 # Time Slider
-swell_data_time = conn.execute(f"SELECT time FROM swell_refined WHERE location = '{locs}' ;").fetchdf()
+swell_data_time = conn.execute(f"SELECT time FROM swell_refined WHERE location = '{locs}';").fetchdf()
 min_time = swell_data_time['time'].min().to_pydatetime()
 max_time = swell_data_time['time'].max().to_pydatetime()
 
@@ -63,6 +63,7 @@ st.subheader(f"{params.replace("_"," ").title()} for {locs}")
 st.line_chart(swell_data_filtered.set_index('time')[params])
 
 # Map chart
+# TODO - understand why this is not dynamic at present and fix!
 lat_long_query = f"""
     SELECT lat, long from locations 
     WHERE location = '{locs}'
