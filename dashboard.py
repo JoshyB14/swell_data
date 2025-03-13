@@ -10,6 +10,7 @@ motherduck_token = st.secrets["MOTHERDUCK"]["MOTHERDUCK_TOKEN"]
 conn = duckdb.connect(f'md:?motherduck_token={motherduck_token}')
 local_conn = duckdb.connect('./locations.duckdb')
 
+
 # ---------------------------------------------
 ### Streamlit COnfig
 
@@ -69,5 +70,5 @@ lat_long_query = f"""
 locations_lat_long = conn.execute(lat_long_query).fetchdf().to_dict()
 
 st.subheader(f"Map of {locs}")
-st.map(data=pd.DataFrame({"latitude":[locations_lat_long['lat'][0]],
-    "longitude": [locations_lat_long['long'][0]],}))
+st.map(data=pd.DataFrame({"latitude":[str(locations_lat_long['lat'][0])],
+    "longitude": [str(locations_lat_long['long'][0])],}))
